@@ -16,7 +16,7 @@ http://localhost:3000
 
 ## API Endpoints
 
-### 1️⃣ GET `/`
+###  GET `/`
 
 #### Description
 Health check endpoint used to verify that the server is running.
@@ -39,7 +39,7 @@ Dog Facts API is running!
 
 ---
 
-### 2️⃣ GET `/facts`
+###  GET `/facts`
 
 #### Description
 Returns a list of dog facts rendered as an HTML list. If no query parameters are provided, **all available dog facts** are returned.
@@ -67,7 +67,7 @@ Example output structure:
 
 ---
 
-### 3️⃣ GET `/facts?number=N`
+###  GET `/facts?number=N`
 
 #### Description
 Returns **only the first N dog facts**, where `N` is a positive integer provided as a query parameter.
@@ -97,7 +97,7 @@ GET /facts?number=3
 
 ---
 
-### 4️⃣ Error Handling – Invalid `number`
+###  Error Handling – Invalid `number`
 
 #### Description
 If the `number` query parameter is not a positive integer, the API returns an error message.
@@ -121,7 +121,7 @@ Error: 'number' must be a positive integer.
 
 ---
 
-### 5️⃣ 404 – Unknown Endpoints
+###  404 – Unknown Endpoints
 
 #### Description
 Handles all undefined routes.
