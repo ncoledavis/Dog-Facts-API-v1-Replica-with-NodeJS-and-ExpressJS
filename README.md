@@ -1,6 +1,6 @@
 # Dog-Facts-API-v1-Replica-with-NodeJS-and-ExpressJS
 
-# 🐶 Dog Facts API – API Calls Documentation
+# Dog Facts API – API Calls Documentation
 
 This document describes **only the API calls (endpoints)** exposed by the Dog Facts API, including their purpose, usage, parameters, and responses.
 
