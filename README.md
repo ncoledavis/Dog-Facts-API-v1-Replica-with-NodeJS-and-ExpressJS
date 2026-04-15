@@ -1,56 +1,12 @@
 # Dog-Facts-API-v1-Replica-with-NodeJS-and-ExpressJS
 
-# 🐶 Dog Facts API
+# 🐶 Dog Facts API – API Calls Documentation
 
-A beginner-friendly Dog Facts API built with **Node.js** and **Express.js**. This project demonstrates how to create a simple API endpoint, read data from a JSON file, handle query parameters, and return results in a clean, readable format.
-
----
-
-## 📦 Features
-
-- Express.js server
-- Dog facts stored in a JSON file
-- `GET /facts` endpoint
-- Optional `number` query parameter
-- HTML list output for easy viewing in the browser
-- Basic error handling
+This document describes **only the API calls (endpoints)** exposed by the Dog Facts API, including their purpose, usage, parameters, and responses.
 
 ---
 
-## 📁 Project Structure
-
-```
-dog-facts-api/
-├── dog_facts.json
-├── server.js
-├── package.json
-└── node_modules/
-```
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/your-username/dog-facts-api.git
-cd dog-facts-api
-```
-
-### 2️⃣ Install dependencies
-
-```bash
-npm install
-```
-
-### 3️⃣ Start the server
-
-```bash
-node server.js
-```
-
-The server will run at:
+## Base URL
 
 ```
 http://localhost:3000
@@ -58,85 +14,145 @@ http://localhost:3000
 
 ---
 
-## 🛣️ API Endpoints
+## API Endpoints
 
-### ✅ GET `/facts`
+### 1️⃣ GET `/`
 
-Returns a list of dog facts.
+#### Description
+Health check endpoint used to verify that the server is running.
 
-#### Example Request
+#### Request
 
 ```
-GET http://localhost:3000/facts
+GET /
 ```
 
-#### Example Response (HTML)
+#### Response
 
-- Dogs have three eyelids
-- Dogs can learn over 1000 words
-- Dogs sweat through their paw pads
+- Returns a simple HTML message confirming the API is active
+
+Example:
+
+```
+Dog Facts API is running!
+```
 
 ---
 
-### ✅ GET `/facts?number=N`
+### 2️⃣ GET `/facts`
 
-Returns only the first **N** dog facts.
+#### Description
+Returns a list of dog facts rendered as an HTML list. If no query parameters are provided, **all available dog facts** are returned.
+
+#### Request
+
+```
+GET /facts
+```
+
+#### Response
+
+- HTML document
+- Unordered list (`<ul>`) of dog facts
+
+Example output structure:
+
+```
+<ul>
+  <li>Dogs have three eyelids.</li>
+  <li>A dog’s sense of smell is at least 40x better than humans.</li>
+  <li>Dogs can learn more than 1000 words.</li>
+</ul>
+```
+
+---
+
+### 3️⃣ GET `/facts?number=N`
+
+#### Description
+Returns **only the first N dog facts**, where `N` is a positive integer provided as a query parameter.
+
+#### Request
+
+```
+GET /facts?number=N
+```
+
+#### Query Parameters
+
+| Parameter | Type    | Required | Description |
+|---------|---------|----------|-------------|
+| number  | Integer | No       | Number of dog facts to return |
 
 #### Example Request
 
 ```
-GET http://localhost:3000/facts?number=3
+GET /facts?number=3
 ```
 
-#### Error Case
+#### Response
 
-If `number` is not a positive integer:
+- HTML document
+- Unordered list containing the first `N` facts
+
+---
+
+### 4️⃣ Error Handling – Invalid `number`
+
+#### Description
+If the `number` query parameter is not a positive integer, the API returns an error message.
+
+#### Example Request
 
 ```
 GET /facts?number=abc
 ```
 
-Response:
+#### Response
+
+- HTTP Status: `400 Bad Request`
+- HTML error message
+
+Example:
 
 ```
-Error: 'number' must be a positive integer
-```
-
----
-
-## 📄 Data Source
-
-Dog facts are stored in a JSON file:
-
-```json
-{
-  "facts": [
-    "Dogs have three eyelids.",
-    "A dog’s sense of smell is at least 40x better than humans.",
-    "Dogs can learn more than 1000 words.",
-    "The Basenji is the only breed that doesn’t bark."
-  ]
-}
+Error: 'number' must be a positive integer.
 ```
 
 ---
 
-## 🧠 How It Works
+### 5️⃣ 404 – Unknown Endpoints
 
-- Express listens for incoming HTTP requests
-- The `/facts` route handles GET requests
-- Query parameters are read using `req.query`
-- Facts are sliced if a `number` is provided
-- An HTML list (`<ul><li>`) is dynamically generated and sent to the browser
+#### Description
+Handles all undefined routes.
+
+#### Example Request
+
+```
+GET /unknown
+```
+
+#### Response
+
+- HTTP Status: `404 Not Found`
+- HTML error message
+
+Example:
+
+```
+404 - Endpoint not found
+```
 
 ---
 
-## 🚀 Future Improvements
+## Summary of API Calls
 
-- Add `/facts/random` endpoint
-- Return JSON or HTML based on request headers
-- Add styling with CSS
-- Add POST requests to allow adding facts
-- Deploy the API online
+| Method | Endpoint | Purpose |
+|-------|----------|---------|
+| GET | `/` | Server health check |
+| GET | `/facts` | Return all dog facts |
+| GET | `/facts?number=N` | Return first N dog facts |
 
 ---
+
+This file intentionally documents **only** the API calls and their behavior.
