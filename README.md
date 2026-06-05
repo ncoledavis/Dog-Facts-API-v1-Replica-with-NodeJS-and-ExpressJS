@@ -2,6 +2,7 @@
 
 A simplified Dog Facts API built with Node.js and Express.js. Returns random dog facts in JSON format.
 https://youtu.be/AoF55pTa3kc
+I had previously recorded the video for this months ago bt the code was lost somehow when I had to switch computers and pull stuff from ONedrive the code does noty match the video but is an improved version
 ## Setup
 
 1. Install dependencies:
