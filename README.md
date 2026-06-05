@@ -1,160 +1,100 @@
-# Dog-Facts-API-v1-Replica-with-NodeJS-and-ExpressJS
+# Dog Facts API
 
-Youtube Link: https://youtu.be/AoF55pTa3kc
+A simplified Dog Facts API built with Node.js and Express.js. Returns random dog facts in JSON format.
 
-# Dog Facts API – API Calls Documentation
+## Setup
 
-This document describes **only the API calls (endpoints)** exposed by the Dog Facts API, including their purpose, usage, parameters, and responses.
+1. Install dependencies:
 
----
-
-## Base URL
-
-```
-http://localhost:3000
+```bash
+npm install
 ```
 
----
+2. Start the server:
+
+```bash
+npm start
+```
+
+The server runs on `http://localhost:3000`.
 
 ## API Endpoints
 
-###  GET `/`
+### GET /facts
 
-#### Description
-Health check endpoint used to verify that the server is running.
-
-#### Request
-
-```
-GET /
-```
-
-#### Response
-
-- Returns a simple HTML message confirming the API is active
-
-Example:
-
-```
-Dog Facts API is running!
-```
-
----
-
-###  GET `/facts`
-
-#### Description
-Returns a list of dog facts rendered as an HTML list. If no query parameters are provided, **all available dog facts** are returned.
-
-#### Request
-
-```
-GET /facts
-```
-
-#### Response
-
-- HTML document
-- Unordered list (`<ul>`) of dog facts
-
-Example output structure:
-
-```
-<ul>
-  <li>Dogs have three eyelids.</li>
-  <li>A dog’s sense of smell is at least 40x better than humans.</li>
-  <li>Dogs can learn more than 1000 words.</li>
-</ul>
-```
-
----
-
-###  GET `/facts?number=N`
-
-#### Description
-Returns **only the first N dog facts**, where `N` is a positive integer provided as a query parameter.
-
-#### Request
-
-```
-GET /facts?number=N
-```
+Returns dog facts in JSON format.
 
 #### Query Parameters
 
-| Parameter | Type    | Required | Description |
-|---------|---------|----------|-------------|
-| number  | Integer | No       | Number of dog facts to return |
+| Parameter | Type    | Required | Description                              |
+|-----------|---------|----------|------------------------------------------|
+| `number`  | integer | No       | Number of random dog facts to return.    |
 
-#### Example Request
+- If `number` is **not provided**, all available facts are returned.
+- If `number` is provided, that many randomly selected facts are returned.
 
-```
-GET /facts?number=3
-```
+#### Success Response (200)
 
-#### Response
-
-- HTML document
-- Unordered list containing the first `N` facts
-
----
-
-###  Error Handling – Invalid `number`
-
-#### Description
-If the `number` query parameter is not a positive integer, the API returns an error message.
-
-#### Example Request
-
-```
-GET /facts?number=abc
+```json
+{
+  "facts": ["A group of pugs is called a grumble.", "Dogs have three eyelids."],
+  "success": true
+}
 ```
 
-#### Response
+#### Error Responses
 
-- HTTP Status: `400 Bad Request`
-- HTML error message
+**400 Bad Request** — Invalid `number` parameter:
 
-Example:
-
-```
-Error: 'number' must be a positive integer.
-```
-
----
-
-###  404 – Unknown Endpoints
-
-#### Description
-Handles all undefined routes.
-
-#### Example Request
-
-```
-GET /unknown
+```json
+{
+  "error": "The 'number' parameter must be a positive integer.",
+  "success": false
+}
 ```
 
-#### Response
+**400 Bad Request** — `number` exceeds available facts:
 
-- HTTP Status: `404 Not Found`
-- HTML error message
-
-Example:
-
-```
-404 - Endpoint not found
+```json
+{
+  "error": "The 'number' parameter cannot exceed 232 (total available facts).",
+  "success": false
+}
 ```
 
----
+**404 Not Found** — Unknown endpoint:
 
-## Summary of API Calls
+```json
+{
+  "error": "Endpoint not found. Try GET /facts",
+  "success": false
+}
+```
 
-| Method | Endpoint | Purpose |
-|-------|----------|---------|
-| GET | `/` | Server health check |
-| GET | `/facts` | Return all dog facts |
-| GET | `/facts?number=N` | Return first N dog facts |
+## Example Usage
 
----
+Get 1 random dog fact:
 
-This file intentionally documents **only** the API calls and their behavior.
+```
+GET http://localhost:3000/facts?number=1
+```
+
+Response:
+
+```json
+{
+  "facts": ["Dalmatians are completely white at birth."],
+  "success": true
+}
+```
+
+Get all dog facts:
+
+```
+GET http://localhost:3000/facts
+```
+
+## Tech Stack
+
+- Node.js
+- Express.js

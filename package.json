@@ -1,0 +1,13 @@
+{
+  "name": "dog-facts-api",
+  "version": "1.0.0",
+  "description": "A simplified Dog Facts API built with Node.js and Express.js",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}
